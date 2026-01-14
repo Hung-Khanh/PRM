@@ -22,7 +22,20 @@ const PORT = process.env.PORT || 5001;
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      process.env.CLIENT_URL, // Frontend
+      process.env.BACKEND_URL // Backend for Swagger testing
+    ].filter(Boolean); // Remove undefined
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 // CLOUDINARY Configuration
 cloudinary.config({
