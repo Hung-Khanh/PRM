@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5001/api"
+      "url": "https://prm-backend-4vy6.onrender.com/api"
     }
   ],
   "components": {
